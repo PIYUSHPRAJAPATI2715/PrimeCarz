@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -57,11 +57,29 @@ const AdminDashboard = () => {
       try {
         const [statsRes, revRes, bookingsRes] = await Promise.all([
           getBookingStats(),
-          getRevenue({ limit: 12 }),
+          getRevenue({ limit: 100 }),
           getAllBookings({ limit: 8, sort: "-createdAt" }),
         ]);
         setStats(statsRes.data);
-        setRevenue(revRes.data?.monthly || revRes.data || []);
+        
+        // Compile monthly chart data
+        const records = revRes.data?.records || [];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const dataMap = months.reduce((acc, m) => {
+          acc[m] = { month: m, income: 0, expense: 0 };
+          return acc;
+        }, {});
+
+        records.forEach((r) => {
+          const date = new Date(r.date);
+          const m = months[date.getMonth()];
+          if (dataMap[m]) {
+            if (r.type === 'income') dataMap[m].income += r.amount;
+            else dataMap[m].expense += r.amount;
+          }
+        });
+
+        setRevenue(Object.values(dataMap));
         setRecentBookings(bookingsRes.data?.bookings || bookingsRes.data || []);
       } catch (err) {
         setError("Failed to load dashboard data.");

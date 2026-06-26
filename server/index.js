@@ -10,7 +10,17 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [process.env.CLIENT_URL || 'http://localhost:5173', 'https://primecarz.onrender.com'],
+  origin: (origin, callback) => {
+    const allowed = [
+      'https://primecarz.onrender.com',
+      process.env.CLIENT_URL
+    ];
+    if (!origin || origin.startsWith('http://localhost:') || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '50mb' }));

@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import CountUp from 'react-countup';
+import CountUpComponent from 'react-countup';
+const CountUp = CountUpComponent.default || CountUpComponent;
 import { useInView } from 'react-intersection-observer';
 import './AboutUs.css';
 
@@ -34,10 +34,8 @@ const AboutUs = () => {
 
   return (
     <div className="about-page">
-      <Helmet>
-        <title>About Us | PrimeCarz Luxury Rentals</title>
-        <meta name="description" content="Discover the story behind PrimeCarz. Since 2014, we have provided elite, premium supercar rentals across the country." />
-      </Helmet>
+      <title>About Us | PrimeCarz Luxury Rentals</title>
+      <meta name="description" content="Discover the story behind PrimeCarz. Since 2014, we have provided elite, premium supercar rentals across the country." />
 
       {/* Hero Section */}
       <div className="page-hero">

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
-import CountUp from 'react-countup';
+import CountUpComponent from 'react-countup';
+const CountUp = CountUpComponent.default || CountUpComponent;
 import { useInView } from 'react-intersection-observer';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -112,27 +112,25 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>PrimeCarz – Premium Car Rental | Book Luxury Cars Online</title>
-        <meta name="description" content="Book premium cars online with PrimeCarz. Luxury sedans, SUVs, sports cars at best prices. Instant booking, secure payment, 24/7 support. Available across India." />
-        <meta name="keywords" content="car rental, luxury car rental, car booking online, rent a car, SUV rental, sedan rental, PrimeCarz" />
-        <meta property="og:title" content="PrimeCarz – Premium Car Rental Service" />
-        <meta property="og:description" content="Drive your dreams with PrimeCarz. Book luxury, SUV, and economy cars online at the best prices." />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://primecarz.com" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "CarRental",
-          "name": "PrimeCarz",
-          "description": "Premium car rental service offering luxury vehicles across India",
-          "telephone": "+919876543210",
-          "email": "info@primecarz.com",
-          "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressCountry": "IN" },
-          "url": "https://primecarz.com",
-          "priceRange": "₹₹₹",
-          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "500" }
-        })}</script>
-      </Helmet>
+      <title>PrimeCarz – Premium Car Rental | Book Luxury Cars Online</title>
+      <meta name="description" content="Book premium cars online with PrimeCarz. Luxury sedans, SUVs, sports cars at best prices. Instant booking, secure payment, 24/7 support. Available across India." />
+      <meta name="keywords" content="car rental, luxury car rental, car booking online, rent a car, SUV rental, sedan rental, PrimeCarz" />
+      <meta property="og:title" content="PrimeCarz – Premium Car Rental Service" />
+      <meta property="og:description" content="Drive your dreams with PrimeCarz. Book luxury, SUV, and economy cars online at the best prices." />
+      <meta property="og:type" content="website" />
+      <link rel="canonical" href="https://primecarz.com" />
+      <script type="application/ld+json">{JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CarRental",
+        "name": "PrimeCarz",
+        "description": "Premium car rental service offering luxury vehicles across India",
+        "telephone": "+919876543210",
+        "email": "info@primecarz.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressCountry": "IN" },
+        "url": "https://primecarz.com",
+        "priceRange": "₹₹₹",
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "500" }
+      })}</script>
 
       {/* ==================== HERO ==================== */}
       <section className="hero" ref={heroRef}>
