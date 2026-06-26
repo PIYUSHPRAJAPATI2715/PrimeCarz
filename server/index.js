@@ -15,7 +15,12 @@ app.use(cors({
       'https://primecarz.onrender.com',
       process.env.CLIENT_URL
     ];
-    if (!origin || origin.startsWith('http://localhost:') || allowed.includes(origin)) {
+    if (
+      !origin || 
+      origin.startsWith('http://localhost:') || 
+      origin.endsWith('vercel.app') || 
+      allowed.includes(origin)
+    ) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
