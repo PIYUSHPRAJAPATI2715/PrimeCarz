@@ -42,4 +42,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://primecarz-api.onrender.com/api
+        value: https://primecarz.onrender.com/api
