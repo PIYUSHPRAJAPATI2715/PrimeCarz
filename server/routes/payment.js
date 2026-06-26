@@ -5,10 +5,19 @@ const crypto = require('crypto');
 const Booking = require('../models/Booking');
 const { protect } = require('../middleware/auth');
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+let razorpay = null;
+if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+  try {
+    razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+  } catch (err) {
+    console.error('Failed to initialize Razorpay:', err.message);
+  }
+} else {
+  console.log('⚠️ Razorpay credentials not configured. Running in simulated payment mode.');
+}
 
 // Create Razorpay order
 router.post('/create-order', protect, async (req, res) => {
@@ -18,7 +27,7 @@ router.post('/create-order', protect, async (req, res) => {
     if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
 
     try {
-      if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      if (!razorpay || !process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
         throw new Error('Razorpay keys not configured');
       }
       const order = await razorpay.orders.create({
