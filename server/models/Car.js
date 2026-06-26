@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+
+const carSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  brand: { type: String, required: true },
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  type: { type: String, enum: ['sedan', 'suv', 'hatchback', 'luxury', 'sports', 'van', 'convertible'], required: true },
+  fuel: { type: String, enum: ['petrol', 'diesel', 'electric', 'hybrid', 'cng'], required: true },
+  transmission: { type: String, enum: ['manual', 'automatic'], required: true },
+  seats: { type: Number, required: true },
+  color: { type: String, default: 'White' },
+  pricePerDay: { type: Number, required: true },
+  securityDeposit: { type: Number, default: 0 },
+  mileageLimit: { type: Number, default: 300 },
+  extraMileageCharge: { type: Number, default: 10 },
+  images: [{ type: String }],
+  thumbnail: { type: String, default: '' },
+  features: [{ type: String }],
+  description: { type: String, default: '' },
+  engineCC: { type: String, default: '' },
+  mileage: { type: String, default: '' },
+  ac: { type: Boolean, default: true },
+  gps: { type: Boolean, default: false },
+  bluetooth: { type: Boolean, default: true },
+  available: { type: Boolean, default: true },
+  rating: { type: Number, default: 0 },
+  totalReviews: { type: Number, default: 0 },
+  totalBookings: { type: Number, default: 0 },
+  location: { type: String, default: '' },
+  registrationNumber: { type: String, default: '' },
+  insuranceExpiry: { type: Date },
+  featured: { type: Boolean, default: false },
+}, { timestamps: true });
+
+module.exports = mongoose.model('Car', carSchema);

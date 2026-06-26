@@ -1,0 +1,21 @@
+# Ignore node_modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Ignore environment config files containing secrets
+.env
+client/.env
+server/.env
+.env*.local
+
+# Ignore build outputs
+dist/
+client/dist/
+build/
+
+# IDE/System files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
