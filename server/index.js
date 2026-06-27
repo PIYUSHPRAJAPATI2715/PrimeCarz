@@ -19,6 +19,7 @@ app.use(cors({
       !origin || 
       origin.startsWith('http://localhost:') || 
       origin.endsWith('vercel.app') || 
+      origin.endsWith('theprimecarz.com') ||
       allowed.includes(origin)
     ) {
       callback(null, true);
